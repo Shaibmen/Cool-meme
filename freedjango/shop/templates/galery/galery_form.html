@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить фото</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+<body class="container mt-4">
+    <h1 class="mb-4">Добавить фотографию к залу</h1>
+
+    <form method="post" enctype="multipart/form-data" class="mb-3">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'galery_list' %}" class="btn btn-secondary">Назад</a>
+    </form>
+</body>
+</html>

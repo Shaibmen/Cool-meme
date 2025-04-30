@@ -1,0 +1,16 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang=ru>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href={% static 'css/bootstrap' %}
+    </head>
+</html>
+
+<h1>Удалить товар "{{bicycle.name}}</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+</form>
+<a href="{% url 'bicycle_list' %}">Вернуться</a>

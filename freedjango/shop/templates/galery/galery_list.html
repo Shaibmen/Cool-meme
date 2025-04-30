@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Галерея магазина</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body class="container mt-4">
+
+    <h1 class="mb-4">Фото зала</h1>
+    <a href="{% url 'galery_create' %}" class="btn btn-primary mb-3">Добавить новое фото</a>
+
+    <ul class="list-group">
+        {% for product in galery %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{% url 'galery_detail' product.pk %}">
+                    <img src="{{ product.photo.url }}" alt="Фото" class="img-thumbnail mt-2" style="max-height: 200px;">
+                </a>
+            </div>
+            
+            
+                <a href="{% url 'galery_update' product.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                <a href="{% url 'galery_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
