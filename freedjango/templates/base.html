@@ -9,25 +9,25 @@
         {% endblock %}
     </title>
 
-        {% block link_style %}
-            <link rel="stylesheet" href="{% static 'css/bootstrap.css'}">
-        {% endblock %}
+    {% block link_style %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    {% endblock %}
+</head>
 
-    <body>
-        {% block body %}
-            {% block header %}
-                {% include '_inc/_header.html' %}
-            {% endblock %}
-            
+<body>
+    {% block body %}
+        {% block header %}
+            {% include '_inc/_header.html' %}
+        {% endblock %}
+        
         <main>
             {% block content %}
             {% endblock %}
         </main>
 
-            {% block footer %}
-                {% include '_inc/_footer.html' %}
-            {% endblock %}
+        {% block footer %}
+            {% include '_inc/_footer.html' %}
         {% endblock %}
-    </body>
-</head>
+    {% endblock %}
+</body>
 </html>
