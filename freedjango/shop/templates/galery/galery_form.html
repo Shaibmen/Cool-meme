@@ -1,7 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
+    {% block title_name %}
+    взаимодействие с фото
+    {% endblock %}
 
-<!DOCTYPE html>
-<html lang="ru">
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <title>Добавить фото</title>
@@ -20,4 +23,5 @@
         <a href="{% url 'galery_list' %}" class="btn btn-secondary">Назад</a>
     </form>
 </body>
-</html>
+{% endblock %}
+

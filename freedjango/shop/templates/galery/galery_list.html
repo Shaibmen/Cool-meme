@@ -1,7 +1,12 @@
-{% load static %}
 
-<!DOCTYPE html>
-<html lang="ru">
+{% extends 'base.html' %}
+{% load static %}
+    {% block title_name %}
+    Фото зала
+    {% endblock %}
+
+{% block content %}
+
 <head>
     <meta charset="UTF-8">
     <title>Галерея магазина</title>
@@ -31,4 +36,5 @@
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
-</html>
+{% endblock %}
+

@@ -1,7 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
+    {% block title_name %}
+    Детальный просмотр велосипедов
+    {% endblock %}
 
-<!DOCTYPE html>
-<html lang="ru">
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <title>Подробности велосипеда</title>
@@ -31,4 +34,4 @@
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
-</html>
+{% endblock %}

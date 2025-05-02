@@ -1,133 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Главная</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+{% extends 'base.html' %}
+{% load static %}
+    {% block title_name %}
+    Создание продукта
+    {% endblock %}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #e0f7fa, #fce4ec);
-      color: #333;
-    }
-
-    header {
-      background-color: #263238;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 50px;
-      border-bottom: 5px solid #ff4081;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 30px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #ff4081;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 80px 20px 40px;
-      background-color: #ffffffaa;
-      margin: 40px 80px;
-      border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-
-    .hero h1 {
-      font-size: 42px;
-      margin-bottom: 20px;
-      color: #d81b60;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: #444;
-    }
-
-    .about {
-      background-color: #ffffffee;
-      padding: 50px;
-      margin: 40px 80px;
-      border-radius: 15px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
-    }
-
-    .about h2 {
-      margin-bottom: 15px;
-      color: #00796b;
-    }
-
-    .about p {
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    footer {
-      background-color: #263238;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 60px;
-      border-top: 5px solid #ff4081;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .hero, .about {
-        margin: 20px;
-        padding: 30px;
-      }
-
-      nav ul {
-        flex-direction: column;
-        gap: 10px;
-      }
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <div class="logo">Моя Компания</div>
-  <nav>
-    <ul>
-        <a href="{% url 'index_render'%}">Главная</a></li>
-        <a href="{% url 'about_render'%}">О компании</a>
-        <a href="{% url 'products_render'%}">Товары</a>
-        <a href="{% url 'cart_render'%}">Корзина</a>
-    </ul>
-  </nav>
-</header>
-
+{% block content %}
 <main>
   <section class="hero">
     <h1>Добро пожаловать!</h1>
@@ -143,10 +20,5 @@
     </p>
   </section>
 </main>
+{% endblock %}
 
-<footer>
-  &copy; 2025 Моя Компания. Все права защищены.
-</footer>
-
-</body>
-</html>

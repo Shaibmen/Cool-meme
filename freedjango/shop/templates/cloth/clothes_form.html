@@ -1,13 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
+    {% block title_name %}
+    Создание продукта
+    {% endblock %}
 
-<!DOCTYPE html>
-<html lang=ru>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href={% static 'css/bootstrap' %}
-    </head>
-</html>
-
+{% block content %}
 <h1>{% if form.instance.pk %}Редактировать позицию{% else %}Добавить новую позицию{% endif %}</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -16,3 +13,5 @@
 </form>
 
 <a href="{% url 'clothes_list' %}">Вернуться</a>
+{% endblock %}
+
