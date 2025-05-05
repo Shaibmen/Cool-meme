@@ -1,37 +1,46 @@
 {% extends 'base.html' %}
 {% load static %}
-    {% block title_name %}
-    Детальный просмотр велосипедов
-    {% endblock %}
+
+{% block title_name %}
+Детальный просмотр велосипедов
+{% endblock %}
 
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <title>Подробности велосипеда</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-</head>
-<body>
+<h1 class="mb-4">Подробности велосипеда</h1>
 
-    <h1 class="mb-4">Подробности велосипеда</h1>
-
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">{{ bicycle.name }}</h4>
-            <p class="card-text"><strong>Цена:</strong> {{ bicycle.price }}</p>
-            <p class="card-text"><strong>Бренд:</strong> {{ bicycle.brend }}</p>
-            <p class="card-text">
-                <strong>Доступно к заказу:</strong> 
-                {% if bicycle.is_exists %}<span class="text-success">Да</span>{% else %}<span class="text-danger">Нет</span>{% endif %}
-            </p>
-        </div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{ bicycle.name }}</h4>
+        <p class="card-text"><strong>Цена:</strong> {{ bicycle.price }}</p>
+        <p class="card-text"><strong>Бренд:</strong> {{ bicycle.brend }}</p>
+        <p class="card-text">
+            <strong>Доступно к заказу:</strong> 
+            {% if bicycle.is_exists %}
+                <span class="text-success">Да</span>
+            {% else %}
+                <span class="text-danger">Нет</span>
+            {% endif %}
+        </p>
     </div>
+</div>
 
-    <div class="mt-4">
-        <a href="{% url 'bicycle_list' %}" class="btn btn-secondary">Вернуться</a>
+{% if request.user.is_authenticated %}
+    <form method="post" action="{% url 'basket_add' bicycle.pk %}">
+        {% csrf_token %}
+        {{ form_basket.as_p }}
+        <input type="hidden" name="count" value="1" />
+        <button type="submit" class="btn btn-success">Добавить в корзину</button>
+    </form>
+{% else %}
+    <p>Для добавления в корзину необходимо авторизоваться.</p>
+{% endif %}
+
+<div class="mt-4">
+    <a href="{% url 'bicycle_list' %}" class="btn btn-secondary">Вернуться</a>
+
+    {% if request.user.is_staff %}
         <a href="{% url 'bicycle_update' bicycle.pk %}" class="btn btn-outline-primary">Редактировать</a>
         <a href="{% url 'bicycle_delete' bicycle.pk %}" class="btn btn-outline-danger">Удалить</a>
-    </div>
-
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-</body>
+    {% endif %}
+</div>
 {% endblock %}

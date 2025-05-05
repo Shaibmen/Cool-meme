@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -12,16 +11,23 @@
         Велосипедный магазин
       </a>
     </div>
-      <nav>
-        <ul>
-            <a href="{% url 'bicycle_list'%}">Велосипеды</a></li>
-            <a href="{% url 'bicycle_photo_list'%}">Фото велоспидов</a>
-            <a href="{% url 'galery_list'%}">Фото зала</a>
-            <a href="{% url 'admin:index'%}">Админка</a>
-            <a href="{% url 'category_products_render'%}"> </a>
-            <a href="{% url 'all_products_render'%}"></a>
-        </ul>
-      </nav>
-    </header>
+    <nav>
+      <ul>
+        <li><a href="{% url 'bicycle_list' %}">Велосипеды</a></li>
+        <li><a href="{% url 'bicycle_photo_list' %}">Фото велосипедов</a></li>
+        <li><a href="{% url 'galery_list' %}">Фото зала</a></li>
+
+        {% if user.is_authenticated %}
+          {% if user.is_staff %}
+            <li><a href="{% url 'admin:index' %}">Админка</a></li>
+          {% endif %}
+          <li><a href="{% url 'logout_user' %}">Выход</a></li>
+        {% else %}
+          <li><a href="{% url 'login_user' %}">Авторизация</a></li>
+          <li><a href="{% url 'registration_user' %}">Регистрация</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
 </body>
 </html>

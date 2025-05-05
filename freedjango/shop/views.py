@@ -1,8 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, CreateView, DetailView, UpdateView
+
+from basket.basket import Basket
+from basket.forms import BasketAddProductForm, LoginForm, RegistrationForm
 from .models import *
 from .forms import *
+
+from django.contrib.auth import login, logout
 
 # Create your views here.
 def index_render(request):
@@ -39,6 +44,11 @@ class BicycleDetailView(DetailView):
     model = Bicycle
     template_name = 'bicycle_shop/bicycle_detail.html'
     context_object_name = 'bicycle'
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['form_backet'] = BasketAddProductForm()
+        return context
 
 class BicycleCreateView(CreateView):
     model = Bicycle
@@ -119,3 +129,42 @@ class GaleryDeleteView(DeleteView):
     template_name = 'galery/galery_delete.html'
     context_object_name = 'galery'
     success_url = reverse_lazy('galery_list')
+
+
+def login_user(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            return redirect('index_render')
+    else:
+        form = LoginForm()
+    context = {
+        'form': form
+    }
+        
+    
+    return render(request, 'auth/login.html', context)
+
+
+def registration_user(request):
+    if request.method == 'POST':
+        form = RegistrationForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.save())
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            return redirect('index_render')
+    else:
+        form = RegistrationForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'auth/registration.html', context)
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('index_render')

@@ -36,4 +36,8 @@ urlpatterns = [
     path('galery/create', GaleryCreateView.as_view(), name='galery_create'),
     path('galery/<int:pk>/update/', GaleryUpdateView.as_view(), name='galery_update'),
     path('galery/<int:pk>/delete/', GaleryDeleteView.as_view(), name='galery_delete'),
+
+    path('login/', login_user, name='login_user'),
+    path('registration/', registration_user, name='registration_user'),
+    path('logout/', logout_user, name='logout_user'),
 ]

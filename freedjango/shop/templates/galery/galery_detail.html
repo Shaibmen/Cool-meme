@@ -1,37 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
-    {% block title_name %}
-    Подробности фото
-    {% endblock %}
 
-{% block content %}
-<head>
-    <meta charset="UTF-8">
-    <title>Подробности картинки</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-</head>
-<body >
-
-    <h1 class="mb-4">Подробности картинки</h1>
-
-    <div class="card">
-        <div class="card-body">
-            <div>
-                <img src="{{ galery.photo.url }}" alt="Фото" class="img-thumbnail mt-2" style="max-height: 200px;">
-            </div>
-            <p class="card-text">{{ galery.name }}</p>
-            <p class="card-text">{{ galery.comment }}</p>
-        </div>
-    </div>
-
-    <div class="mt-4">
-        <a href="{% url 'galery_list' %}" class="btn btn-secondary">Вернуться</a>
-        <a href="{% url 'galery_update' galery.pk %}" class="btn btn-outline-primary">Редактировать</a>
-        <a href="{% url 'galery_delete' galery.pk %}" class="btn btn-outline-danger">Удалить</a>
-    </div>
-
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-</body>
+{% block title_name %}
+Подробности фото
 {% endblock %}
 
+{% block content %}
+<h1 class="mb-4">Подробности картинки</h1>
 
+<div class="card">
+    <div class="card-body">
+        <div>
+            <img src="{{ galery.photo.url }}" alt="Фото" class="img-thumbnail mt-2" style="max-height: 200px;">
+        </div>
+        <p class="card-text">{{ galery.name }}</p>
+        <p class="card-text">{{ galery.comment }}</p>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'galery_list' %}" class="btn btn-secondary">Вернуться</a>
+
+    {% if request.user.is_staff %}
+        <a href="{% url 'galery_update' galery.pk %}" class="btn btn-outline-primary">Редактировать</a>
+        <a href="{% url 'galery_delete' galery.pk %}" class="btn btn-outline-danger">Удалить</a>
+    {% endif %}
+</div>
+{% endblock %}

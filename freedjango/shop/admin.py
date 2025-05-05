@@ -11,3 +11,14 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Employee)
 class CategoryAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Order)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Pos_order)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
+

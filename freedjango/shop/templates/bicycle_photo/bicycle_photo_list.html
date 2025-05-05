@@ -1,37 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
-    {% block title_name %}
-    Просмотр фотографий велосипедов
-    {% endblock %}
+
+{% block title_name %}
+Просмотр фотографий велосипедов
+{% endblock %}
 
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <title>Велосипеды</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-</head>
-<body >
+<h1 class="mb-4">Фото велосипедов</h1>
 
-    <h1 class="mb-4">Фото велосипедов</h1>
+{% if request.user.is_staff %}
     <a href="{% url 'bicycle_photo_create' %}" class="btn btn-primary mb-3">Добавить новое фото</a>
+{% endif %}
 
-    <ul class="list-group">
-        {% for product in photo_bicycle %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                <a href="{% url 'bicycle_photo_detail' product.pk %}">
-                    <img src="{{ product.photo.url }}" alt="Фото" class="img-thumbnail mt-2" style="max-height: 200px;">
-                </a>
-            </div>
-            
-            
-                <a href="{% url 'bicycle_photo_update' product.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
-                <a href="{% url 'bicycle_photo_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
+<ul class="list-group">
+    {% for product in photo_bicycle %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+            <a href="{% url 'bicycle_photo_detail' product.pk %}">
+                <img src="{{ product.photo.url }}" alt="Фото" class="img-thumbnail mt-2" style="max-height: 200px;">
+            </a>
+        </div>
 
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-</body>
+        {% if request.user.is_staff %}
+        <div>
+            <a href="{% url 'bicycle_photo_update' product.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+            <a href="{% url 'bicycle_photo_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+        </div>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}

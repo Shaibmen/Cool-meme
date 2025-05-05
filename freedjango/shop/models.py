@@ -144,3 +144,45 @@ class Galery(models.Model):
     class Meta:
         verbose_name = 'Галерея'
         verbose_name_plural = 'Галереии'
+
+
+class Order(models.Model):
+    SHOP = "SH"
+    COURIER = "CR"
+    PICKUPPOINT = "PP"
+    TYPE_DELIVERY = [
+        (SHOP, 'вывоз из магазина'),
+        (COURIER, 'доставка курьером'),
+        (PICKUPPOINT, 'пункт выдачи')
+    ]
+
+    buyer_firstname = models.CharField(max_length=MAX_LENGTH, verbose_name='Имя покупателя')
+    buyer_secondname = models.CharField(max_length=MAX_LENGTH, verbose_name='Фамилия покупателя')
+    buyer_surname = models.CharField(max_length=MAX_LENGTH, blank=True, null= True, verbose_name='Отчество покупателя')
+    comment = models.CharField(max_length=MAX_LENGTH, blank=True, null= True, verbose_name='Описание')
+    delivery_address = models.CharField(max_length=MAX_LENGTH, verbose_name='Адрес доставки')
+    delivery_type = models.CharField(max_length=2, choices=TYPE_DELIVERY, default=SHOP,  verbose_name='способ доставки')
+    date_create = models.DateTimeField(auto_now_add=True, verbose_name='дата создания заказа')
+    date_finish = models.DateTimeField(blank=True, null=True, verbose_name='дата создания заказа')
+
+    bicycle = models.ManyToManyField('Bicycle', through='Pos_order', verbose_name='товар')
+
+    def __str__(self):
+        return f'#{self.pk} - {self.buyer_firstname} - ({self.date_create})'
+    
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+class Pos_order(models.Model):
+    bicycle = models.ForeignKey(Bicycle, on_delete=models.CASCADE, verbose_name='продукт')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='заказ')
+    count = models.PositiveIntegerField(default=1, verbose_name='кол-во продукта')
+    discount = models.PositiveIntegerField(default=0, verbose_name='скидка на позицию')
+
+    def __str__(self):
+        return f'#{self.order.pk} - {self.bicycle.name} - {self.order.buyer_firstname}'
+    
+    class Meta:
+        verbose_name = 'позиция заказа'
+        verbose_name_plural = 'позиции заказа'

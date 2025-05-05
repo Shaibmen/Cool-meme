@@ -1,33 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
-    {% block title_name %}
-    Велосипеды
-    {% endblock %}
+
+{% block title_name %}
+Велосипеды
+{% endblock %}
 
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <title>Велосипеды</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-</head>
-<body>
+<h1 class="mb-4">Велосипеды</h1>
 
-    <h1 class="mb-4">Велосипеды</h1>
+{% if request.user.is_staff %}
     <a href="{% url 'bicycle_create' %}" class="btn btn-primary mb-3">Добавить новую позицию</a>
+{% endif %}
 
-    <ul class="list-group">
-        {% for product in bicycle %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                <a href="{% url 'bicycle_detail' product.pk %}">{{ product.name }}</a><p>{{product.brend}}</p><p>{{product.}}</p>
-            <div>
-                <a href="{% url 'bicycle_update' product.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
-                <a href="{% url 'bicycle_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
+<ul class="list-group">
+    {% for product in bicycle %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+            <a href="{% url 'bicycle_detail' product.pk %}">{{ product.name }}</a>
+            <p>{{ product.brend }}</p>
+            <p>{{ product.price }} руб.</p>
+        </div>
 
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-</body>
+        {% if request.user.is_staff %}
+        <div>
+            <a href="{% url 'bicycle_update' product.pk %}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+            <a href="{% url 'bicycle_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+        </div>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
