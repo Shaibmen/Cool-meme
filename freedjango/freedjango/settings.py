@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'basket',
+    'api_shop',
+    'rest_framework'
 
 ]
 
